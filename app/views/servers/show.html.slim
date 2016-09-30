@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @server.name
+p
+  strong Host:
+  = @server.host
+p
+  strong Port:
+  = @server.port
+p
+  strong Auth token:
+  = @server.auth_token
+
+- if @metrics
+ == render partial: 'servers/metrics', locals: {metrics: @metrics}
+
+= link_to 'Edit', edit_server_path(@server)
+'|
+= link_to 'Back', servers_path

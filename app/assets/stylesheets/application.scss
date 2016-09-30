@@ -1,0 +1,28 @@
+@import 'bootstrap';
+
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+// error messages styles
+
+.field_with_errors {
+  background-color: #ff3333;
+}
+
+.simple_form {
+  .has-error {
+    color: #555;
+    display: block;
+  }
+  .help-block {
+        color: #a94442;
+        display: block;
+        font-style: italic;
+  }
+}

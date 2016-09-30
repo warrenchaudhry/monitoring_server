@@ -1,0 +1,10 @@
+= simple_form_for @server do |f|
+  = f.error_notification
+  = f.input :name
+  = f.input :host
+  = f.input :port
+  = f.input :description
+  = f.button :submit, class: 'btn btn-primary'
+  - if action_name == 'edit'
+    = link_to 'Show', @server, class: 'btn btn-info', style: 'margin-left:5px;'
+  = link_to 'Back', :back, class: 'btn btn-secondary', style: 'margin-left:5px;'

@@ -1,0 +1,27 @@
+.page-header
+  h1 Listing servers
+
+table.table.table-bordered
+  thead
+    tr
+      th Name
+      th Host
+      th Port
+      th Added On
+      th
+  tbody
+    - @servers.each do |server|
+      tr
+        td = server.name
+        td = server.host
+        td = server.port
+        td = server.created_at.to_s(:long)
+        td
+          .btn-group role="group"
+            = link_to 'Show', server, class: 'btn btn-secondary'
+            = link_to 'Edit', edit_server_path(server), class: 'btn btn-secondary'
+            = link_to 'Destroy', server, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-secondary'
+
+br
+
+= link_to 'New Server', new_server_path, class: 'btn btn-primary'
