@@ -10,7 +10,12 @@ class ServersController < ApplicationController
   # GET /servers/1
   # GET /servers/1.json
   def show
-    @metrics = @server.metrics.last
+    metric = $redis.hget("metrics", @server.id.to_s)
+    if metric
+      @metrics = Metric.new(JSON.parse(metric))
+    else
+      @metrics = nil
+    end
   end
 
   # GET /servers/new
@@ -65,7 +70,7 @@ class ServersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_server
-      @server = Server.includes(:metrics).find(params[:id])
+      @server = Server.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

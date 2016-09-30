@@ -4,19 +4,27 @@ module Api
       before_filter :authenticate_token!
       def create
         @metric = Metric.new(metric_params)
-        @metric.server = @server
-        if @metric.save
+        @metric.server_id = @server.id
+        if @metric.valid?
+          @metric.save
           render json: @metric
         else
-          render json: @metric.errors
+            render json: @metric.errors
         end
+
+        # @metric.server = @server
+        # if @metric.save
+        #   render json: @metric
+        # else
+        #   render json: @metric.errors
+        # end
       end
 
 
       private
 
       def metric_params
-        params.require(:metric).permit(:hostname, :cpu_usage, :total_disk_space, :used_disk_space, :disk_remaining_percent, running_processes: [:command, :pid,:cpu,:mem, :user])
+        params.require(:metric).permit(:hostname, :cpu_usage, :total_disk_space, :used_disk_space, :disk_remaining_percent, :fetch_time, running_processes: [:command, :pid,:cpu,:mem, :user])
       end
 
       def authenticate_token!

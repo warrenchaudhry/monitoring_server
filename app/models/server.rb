@@ -1,23 +1,11 @@
-class Server
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
-  field :name,  type: String
-  field :host,  type: String
-  field :port,  type: Integer, default: 80
-  field :description, type: String
-  field :authenticated, type: Boolean, default: false
-  field :auth_token, type: String
-
-  has_many :metrics, inverse_of: :server, dependent: :destroy
-
+class Server < ApplicationRecord
   validates :name, :host, :port, presence: true
   validates_numericality_of :port, allow_blank: true
   validates_uniqueness_of :name, case_sensitive: false
   validates_uniqueness_of :host, case_sensitive: false
-  validates :host, :url => {:no_local => false}
+  validates_url :host, allow_blank: true
 
-  before_validation :smart_add_url_protocol
+  before_validation :smart_add_url_protocol, if: 'host.present?'
   before_create :generate_auth_token
 
   private
@@ -30,7 +18,8 @@ class Server
 
   def generate_auth_token
     begin
-      self.auth_token = SecureRandom.base64
-    end while self.class.where(auth_token: self.auth_token).exists?
+      self.auth_token = SecureRandom.base64(48)
+    end while self.class.exists?(auth_token: self.auth_token)
   end
+
 end

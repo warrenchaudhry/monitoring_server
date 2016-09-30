@@ -16,3 +16,7 @@
 # Ignore Byebug command history file.
 .byebug_history
 .ruby-gemset
+dump.rdb
+
+# Ignore application configuration
+/config/application.yml

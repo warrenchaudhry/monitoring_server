@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class ServersControllerTest < ActionDispatch::IntegrationTest
+  fixtures :servers
   setup do
-    @server = servers(:one)
+    @server = Server.new(name: 'Testing Server', host: "http://192.168.254.254", description: 'Test Description')
+    @server.save
+    @server.reload
   end
 
   test "should get index" do
@@ -17,7 +20,7 @@ class ServersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create server" do
     assert_difference('Server.count') do
-      post servers_url, params: { server: { auth_token: @server.auth_token, host: @server.host, name: @server.name, port: @server.port } }
+      post servers_url, params: { server: { host: "192.168.254.100", name: "New Server", port: @server.port } }
     end
 
     assert_redirected_to server_url(Server.last)

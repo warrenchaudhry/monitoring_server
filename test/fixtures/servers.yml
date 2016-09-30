@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  host: 
-  port: 1
-  auth_token: MyString
+localserver:
+  name: 'local server'
+  host: 'localhost'
+  port: 3000
+  description: 'This is a local server'
+  authenticated: true
 
-two:
-  name: MyString
-  host: 
-  port: 1
-  auth_token: MyString
+invalid_server:
+  name: 'invalid server'
+  host: 'samplehost'
+  port: 80
+  description: 'Description for invalid server'
+  authenticated: true

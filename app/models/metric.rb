@@ -1,16 +1,30 @@
 class Metric
-  include Mongoid::Document
-  include Mongoid::Timestamps
+  include Virtus.model
+  include ActiveModel::Model
 
-  field :hostname, type: String
-  field :cpu_usage, type: BigDecimal
-  field :total_disk_space, type: BigDecimal
-  field :used_disk_space, type: BigDecimal
-  field :disk_remaining_percent, type: BigDecimal
-  field :running_processes, type: Array
+  attribute :hostname,               String
+  attribute :cpu_usage,              Decimal
+  attribute :total_disk_space,       Integer
+  attribute :used_disk_space,        Integer
+  attribute :disk_remaining_percent, Decimal
+  attribute :running_processes,      Array
+  attribute :fetch_time,             DateTime
+  attribute :server_id,              Integer
 
-  belongs_to :server, inverse_of: :metrics
+  attr_accessor :hostname, :cpu_usage, :total_disk_space, :used_disk_space, :disk_remaining_percent, :running_processes, :fetch_time, :server_id
+  validates :hostname, :cpu_usage, :total_disk_space, :used_disk_space,
+            :disk_remaining_percent, :running_processes, :server_id, presence: true
+  validates_numericality_of :cpu_usage, :total_disk_space, :used_disk_space, :disk_remaining_percent
 
-  validates :server, presence: true
+
+  def server
+    Server.find(self.server_id) rescue nil
+  end
+
+  def save
+    $redis.hset("metrics", server_id.to_s, self.attributes.to_json)
+    true
+  end
+
 
 end
