@@ -23,6 +23,7 @@ class Metric
 
   def save
     $redis.hset("metrics", server_id.to_s, self.attributes.to_json)
+    MetricsBroadcastJob.perform_later(self.attributes)
     true
   end
 
