@@ -35,6 +35,7 @@ gem 'simple_form'
 gem 'validate_url'
 gem 'figaro'
 gem 'virtus'
+gem 'mysql2', '~> 0.4.4'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
@@ -43,7 +44,7 @@ end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  gem 'mysql2', '~> 0.4.4'
+
 end
 
 group :test do
@@ -60,7 +61,6 @@ group :development do
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
 end
 
