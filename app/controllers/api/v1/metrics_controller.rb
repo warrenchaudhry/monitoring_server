@@ -7,7 +7,7 @@ module Api
         @metric.server_id = @server.id
         if @metric.valid?
           @metric.save
-          render json: @metric
+          render json: @metric, status: 201
         else
             render json: @metric.errors
         end

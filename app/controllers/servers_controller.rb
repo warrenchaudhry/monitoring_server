@@ -12,7 +12,7 @@ class ServersController < ApplicationController
   def show
     metric = $redis.hget("metrics", @server.id.to_s)
     if metric
-      @metrics = Metric.new(JSON.parse(metric))
+      @metrics = JSON.parse(metric)
     else
       @metrics = nil
     end

@@ -14,7 +14,9 @@ p
   = @server.auth_token
 
 - if @metrics
- == render partial: 'servers/metrics', locals: {metrics: @metrics}
+
+  #metrics-info.row data-server-id="#{@server.id}"
+    == render partial: 'servers/metrics', locals: {metrics: @metrics}
 
 = link_to 'Edit', edit_server_path(@server)
 '|
