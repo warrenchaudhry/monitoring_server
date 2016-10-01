@@ -35,6 +35,7 @@ gem 'simple_form'
 gem 'validate_url'
 gem 'figaro'
 gem 'virtus'
+gem 'devise'
 
 
 source 'https://rails-assets.org' do
@@ -50,6 +51,9 @@ end
 
 group :test do
   gem 'database_cleaner'
+  gem 'mocha'
+  gem 'bourne'
+  gem 'fakeredis'
 end
 
 group :development do

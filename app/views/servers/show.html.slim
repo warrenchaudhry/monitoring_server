@@ -1,23 +1,27 @@
-p#notice = notice
+.page-header
+  h2 Server Details
+  hr
+  .row-fluid
+    dl.row
+      dt.col-sm-3 Server Name
+      dd.col-sm-9 = @server.name
+      dt.col-sm-3 Host
+      dd.col-sm-9 = link_to @server.uri, @server.uri, target: '_blank'
+      - if @server.description.present?
+        dt.col-sm-3 Description
+        dd.col-sm-9 == @server.description
 
-p
-  strong Name:
-  = @server.name
-p
-  strong Host:
-  = @server.host
-p
-  strong Port:
-  = @server.port
-p
-  strong Auth token:
-  = @server.auth_token
 
-- if @metrics
+  - if @metrics
 
-  #metrics-info.row data-server-id="#{@server.id}"
-    == render partial: 'servers/metrics', locals: {metrics: @metrics}
+    #metrics-info data-server-id="#{@server.id}"
+      == render partial: 'servers/metrics', locals: {metrics: @metrics}
 
-= link_to 'Edit', edit_server_path(@server)
-'|
-= link_to 'Back', servers_path
+  - else
+
+    hr
+    p.lead No details yet
+
+  hr
+  = link_to 'Edit', edit_server_path(@server), class: 'btn btn-primary'
+  = link_to 'Back', servers_path, class: 'btn btn-secondary', style: 'margin-left:5px;'
