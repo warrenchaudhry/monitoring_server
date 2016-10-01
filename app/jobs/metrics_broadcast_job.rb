@@ -5,7 +5,7 @@ class MetricsBroadcastJob < ApplicationJob
     puts "Metrics ++++++++++++++++++++++++++++++++++++++++++++++"
 
     ActionCable.server.broadcast "server_metrics_#{metrics[:server_id]}_channel",
-                                 metrics: render_message(metrics)
+                                 metrics: render_message(metrics), server_id: metrics[:server_id]
 
   end
   private

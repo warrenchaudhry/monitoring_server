@@ -1,10 +1,11 @@
 jQuery(document).on 'turbolinks:load', ->
   messages = $('#metrics-info')
   if $('#metrics-info').length > 0
-
+    metrics_container = $('#metrics-info')
+    server_id = metrics_container.data('server-id')
     App.metrics = App.cable.subscriptions.create {
         channel: "ServerMetricsChannel",
-        server_id: $('#metrics-info').data('server-id')
+        server_id: server_id
       },
       connected: ->
 
@@ -13,6 +14,7 @@ jQuery(document).on 'turbolinks:load', ->
         # Called when the subscription has been terminated by the server
 
       received: (data) ->
-        $('#metrics-info').html(data.metrics)
+        if parseInt(server_id) == data.server_id
+          $('#metrics-info').html(data.metrics)
 
         # Called when there's incoming data on the websocket for this channel
