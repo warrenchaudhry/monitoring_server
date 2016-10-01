@@ -1,4 +1,4 @@
-jQuery(document).on 'turbolinks:load', ->
+jQuery(document).on 'ready', ->
   messages = $('#metrics-info')
   if $('#metrics-info').length > 0
     metrics_container = $('#metrics-info')
