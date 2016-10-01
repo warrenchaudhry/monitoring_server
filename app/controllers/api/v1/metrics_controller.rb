@@ -3,11 +3,21 @@ module Api
     class MetricsController < Api::V1::BaseController
       before_action :authenticate_token!
       def create
+        @settings = Setting.first
         @metric = Metric.new(metric_params)
         @metric.server_id = @server.id
         if @metric.valid?
           @metric.save
-          render json: @metric, status: 201
+          info = {
+            metric: @metric,
+            cpu_usage:{
+              on_limit: @metric.cpu_usage.to_f > @settings.cpu_usage_limit,
+              value: @metric.cpu_usage,
+              time: @metric.fetch_time
+            },
+            on_disk_usage_limit: @metric.disk_remaining_percent.to_f < @settings.disk_usage_limit
+          }
+          render json: info, status: 201
         else
             render json: @metric.errors
         end

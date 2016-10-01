@@ -3,9 +3,9 @@
   hr
   .row-fluid
     dl.row
-      dt.col-sm-3 % CPU Usage Limit
+      dt.col-sm-3 Alert when % CPU Usage Limit
       dd.col-sm-9 = to_percentage @settings.cpu_usage_limit
-      dt.col-sm-3 % Disk Usage Limit
+      dt.col-sm-3 Alert when % Disk Remaining
       dd.col-sm-9 = to_percentage @settings.disk_usage_limit
       dt.col-sm-3 Last Updated By
       dd.col-sm-9 = @settings.user.try(:name) || 'System'

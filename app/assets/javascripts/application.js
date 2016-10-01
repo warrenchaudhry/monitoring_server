@@ -16,3 +16,10 @@
 //= require bootstrap-sprockets
 //= require cable
 //= require_tree .
+
+$(function() {
+  $('a#show_token').click(function(event){
+    event.preventDefault();
+    $('div#token_container').toggle();
+  });
+});
