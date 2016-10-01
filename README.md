@@ -34,37 +34,53 @@ $ cd monitoring_server
 
   Follow the instructions [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-redis-on-ubuntu-16-04).
   Once installed, make sure that redis is running. You can check by:
+
   ```
   $ redis-cli
   ```
+
 0. Rename `config/application.yml.example` to `config/application.yml`
-```
-$ mv config/application.yml.example config/application.yml
-```
+
+  ```
+  $ mv config/application.yml.example config/application.yml
+  ```
+
 0. Be sure to change the credentials in `config/application.yml` file and please check the configuration in `config/database.yml` for any modifications before creating the database.
+
   ###### sample content of `config/application.yml` file
+
   ```
   DATABASE_USERNAME: mysqlusername
   DATABASE_PASSWORD: mysqlpassword
   ```
+
 0. Create database and migration
+
   ```
   $ rails db:create
   $ rails db:migrate
   ```
+
 0. Seed the tables
+
   ```
   $ rails db:seed
   ```
-0. The project should work from here on, but if it has been updated with new dependencies, pull the code again, and run `$ bundle install`.  
+
+0. The project should work from here on, but if it has been updated with new dependencies, pull the code again, and run
+ `$ bundle install`.  
 0. Run the tests
+
 ```
 $ rake
 ```
+
 0. Start the application
+
 ```
 $ rails s
 ```
+
 1. Visit your application at http://localhost:3000
 
 ## Test data
