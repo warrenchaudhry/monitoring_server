@@ -18,6 +18,11 @@ class Server < ApplicationRecord
     end
   end
 
+  def metric
+    metric = $redis.hget("metrics", self.id.to_s)
+    JSON.parse(metric) rescue nil
+  end
+
   private
 
   def smart_add_url_protocol
