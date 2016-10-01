@@ -54,6 +54,7 @@ group :test do
   gem 'mocha'
   gem 'bourne'
   gem 'fakeredis'
+  gem 'rails-controller-testing'
 end
 
 group :development do
