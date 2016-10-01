@@ -3,7 +3,7 @@
 hr
 = simple_form_for @settings do |f|
   = f.error_notification
-  = f.input :cpu_usage_limit
-  = f.input :disk_usage_limit
+  = f.input :cpu_usage_limit, label: 'Alert server when CPU usage is at?'
+  = f.input :disk_usage_limit, label: 'Alert server when disk remaining percentage is and below?'
   = f.button :submit, class: 'btn btn-primary'
   = link_to 'Back', :back, class: 'btn btn-secondary', style: 'margin-left:5px;'

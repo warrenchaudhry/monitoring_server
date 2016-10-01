@@ -5,7 +5,7 @@ nav.navbar.navbar-dark.bg-primary
     = link_to "Monitauros", '/', class: 'navbar-brand'
     - if user_signed_in?
       ul.nav.navbar-nav
-        li.nav-item *{class: controller_name == 'servers' ? 'active' : nil}
+        li.nav-item *{class: controller_name == 'servers' && action_name != 'report' ? 'active' : nil}
           = link_to servers_path, class: 'nav-link' do
             | Servers
             span.sr-only
@@ -13,6 +13,9 @@ nav.navbar.navbar-dark.bg-primary
         li.nav-item *{class: controller_name == 'settings' ? 'active' : nil}
           = link_to setting_path(settings), class: 'nav-link' do
             | Settings
+        li.nav-item *{class: controller_name == 'servers' && action_name == 'report' ? 'active' : nil}
+          = link_to servers_report_path, class: 'nav-link' do
+            | Report
       ul.nav.navbar-nav.pull-xs-right
         li.nav-item
           = link_to '#', class: 'nav-link' do

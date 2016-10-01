@@ -1,6 +1,9 @@
 .page-header
-  h2 Server Report
-
+  h2.col-sm-6 Server Report
+  .col-sm-6
+    = link_to 'Export to PDF', servers_report_path(format: :pdf), target: '_blank', class: 'btn btn-info pull-xs-right'
+.clearfix
+hr
 table.table.table-bordered
   thead
     tr
@@ -20,4 +23,4 @@ table.table.table-bordered
 
 br
 
-= link_to 'New Server', new_server_path, class: 'btn btn-primary'
+= link_to 'Back', servers_path, class: 'btn btn-primary'

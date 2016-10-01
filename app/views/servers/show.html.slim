@@ -10,6 +10,8 @@
       - if @server.description.present?
         dt.col-sm-3 Description
         dd.col-sm-9 == @server.description
+      dt.col-sm-3 Token
+      dd.col-sm-9 = @server.auth_token
 
 
   - if @metrics
