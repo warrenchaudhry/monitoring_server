@@ -10,12 +10,7 @@ class ServersController < ApplicationController
   # GET /servers/1
   # GET /servers/1.json
   def show
-    metric = $redis.hget("metrics", @server.id.to_s)
-    if metric
-      @metrics = JSON.parse(metric)
-    else
-      @metrics = nil
-    end
+    @metrics = @server.metric
   end
 
   # GET /servers/new
@@ -64,6 +59,20 @@ class ServersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to servers_url, notice: 'Server was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def report
+    @servers = Server.all.select {|x| x.metric.present? }
+    @metrics = @servers.collect {|x| Metric.new(x.metric) }.sort_by(&:cpu_usage).reverse
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render  pdf: 'report',
+                layout: false,
+                orientation: 'Portrait',
+                locals: {:report => @metrics}
+      end
     end
   end
 

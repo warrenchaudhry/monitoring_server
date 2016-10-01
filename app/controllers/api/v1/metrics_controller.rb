@@ -1,7 +1,7 @@
 module Api
   module V1
     class MetricsController < Api::V1::BaseController
-      before_filter :authenticate_token!
+      before_action :authenticate_token!
       def create
         @metric = Metric.new(metric_params)
         @metric.server_id = @server.id

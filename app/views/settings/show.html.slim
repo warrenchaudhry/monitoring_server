@@ -1,0 +1,16 @@
+.page-header
+  h2 Settings
+  hr
+  .row-fluid
+    dl.row
+      dt.col-sm-3 % CPU Usage Limit
+      dd.col-sm-9 = to_percentage @settings.cpu_usage_limit
+      dt.col-sm-3 % Disk Usage Limit
+      dd.col-sm-9 = to_percentage @settings.disk_usage_limit
+      dt.col-sm-3 Last Updated By
+      dd.col-sm-9 = @settings.user.try(:name) || 'System'
+      dt.col-sm-3 Modified At
+      dd.col-sm-9 = @settings.updated_at.to_s(:long)
+  hr
+  = link_to 'Edit', edit_setting_path(@settings), class: 'btn btn-primary'
+  = link_to 'Back', servers_path, class: 'btn btn-secondary', style: 'margin-left:5px;'

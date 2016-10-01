@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Monitauros | Report</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <%= wicked_pdf_stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css', integrity: 'sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj', crossorigin: "anonymous" %>
+</head>
+
+
+<body>
+<div class="container">
+  <div class="page-header">
+    <h2>Server Report</h2>
+  </div>
+  <hr>
+  <table class="table table table-bordered">
+    <thead>
+      <tr>
+        <th>Server Name</th>
+        <th>Host</th>
+        <th>CPU Usage</th>
+        <th>Disk Remaining</th>
+        <th>Time Fetched</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @metrics.each do |metric| %>
+        <tr>
+          <td><%= metric.server.name %></td>
+          <td><%= link_to metric.server.uri, metric.server.uri, target: '_blank' %></td>
+          <td><%= to_percentage metric.cpu_usage %></td>
+          <td><%= to_percentage metric.disk_remaining_percent %></td>
+          <td><%= metric.fetch_time.to_datetime.to_s(:long) %></td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+
+
+
+
+
+</div>
+</body>
+</html>

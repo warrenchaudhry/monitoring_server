@@ -35,6 +35,9 @@ gem 'simple_form'
 gem 'validate_url'
 gem 'figaro'
 gem 'virtus'
+gem 'devise'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 
 source 'https://rails-assets.org' do
@@ -50,6 +53,11 @@ end
 
 group :test do
   gem 'database_cleaner'
+  gem 'mocha'
+  gem 'bourne'
+  gem 'fakeredis'
+  gem 'rails-controller-testing'
+  # gem 'webmock'
 end
 
 group :development do

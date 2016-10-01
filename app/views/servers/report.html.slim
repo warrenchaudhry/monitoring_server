@@ -1,0 +1,23 @@
+.page-header
+  h2 Server Report
+
+table.table.table-bordered
+  thead
+    tr
+      th Server Name
+      th Host
+      th CPU Usage
+      th Disk Remaining
+      th Time Fetched
+  tbody
+    - @metrics.each do |metric|
+      tr
+        td = metric.server.name
+        td = link_to metric.server.uri, metric.server.uri, target: '_blank'
+        td = to_percentage metric.cpu_usage
+        td = to_percentage metric.disk_remaining_percent
+        td = metric.fetch_time.to_datetime.to_s(:long)
+
+br
+
+= link_to 'New Server', new_server_path, class: 'btn btn-primary'

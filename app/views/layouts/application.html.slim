@@ -11,4 +11,6 @@ html
   body
     .container
       = render "layouts/navbar"
+      - if params[:notice]
+       = render 'shared/flash_messages'
       == yield

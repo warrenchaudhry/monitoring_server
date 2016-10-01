@@ -1,3 +1,4 @@
+require 'uri'
 class Server < ApplicationRecord
   validates :name, :host, :port, presence: true
   validates_numericality_of :port, allow_blank: true
@@ -7,6 +8,20 @@ class Server < ApplicationRecord
 
   before_validation :smart_add_url_protocol, if: 'host.present?'
   before_create :generate_auth_token
+
+
+  def uri
+    if self.port == 80
+      self.host
+    else
+      "#{self.host}:#{self.port}"
+    end
+  end
+
+  def metric
+    metric = $redis.hget("metrics", self.id.to_s)
+    JSON.parse(metric) rescue nil
+  end
 
   private
 

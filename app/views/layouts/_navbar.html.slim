@@ -1,15 +1,22 @@
-nav.navbar.navbar-light.bg-faded
+nav.navbar.navbar-dark.bg-primary
   button.navbar-toggler.hidden-sm-up type="button" data-toggle="collapse" data-target="#navbar-header" aria-expanded="false" aria-controls="navbar-header"
     | ☰
   #navbar-header.collapse.navbar-toggleable-xs
     = link_to "Monitauros", '/', class: 'navbar-brand'
-
-    ul.nav.navbar-nav
-      li.nav-item.active
-        = link_to servers_path, class: 'nav-link' do
-          | Servers
-          span.sr-only
-            | (current)
-      li.nav-item
-        = link_to "#", class: 'nav-link' do
-          | Features
+    - if user_signed_in?
+      ul.nav.navbar-nav
+        li.nav-item *{class: controller_name == 'servers' ? 'active' : nil}
+          = link_to servers_path, class: 'nav-link' do
+            | Servers
+            span.sr-only
+              | (current)
+        li.nav-item *{class: controller_name == 'settings' ? 'active' : nil}
+          = link_to setting_path(settings), class: 'nav-link' do
+            | Settings
+      ul.nav.navbar-nav.pull-xs-right
+        li.nav-item
+          = link_to '#', class: 'nav-link' do
+            | #{current_user.name}
+        li.nav-item
+          = link_to destroy_user_session_path, class: 'nav-link', data: {method: :delete} do
+            | Logout
